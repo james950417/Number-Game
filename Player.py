@@ -1,3 +1,4 @@
+#test
 class Player():
     def __init__(self, pid, others_cards):
         self.pid = pid
