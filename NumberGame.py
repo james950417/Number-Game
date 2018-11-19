@@ -8,8 +8,6 @@ class NumberGame(object):
 		self.num_players = num_players
 
 		
-
-
 def main():
 	print("Welcome to the Number Game! :D")
 	num_players = input("Please enter the number of players for the game (including yourself): ")
@@ -18,8 +16,7 @@ def main():
 	deck.shuffle()
 	dealt_cards = [deck.deal(1) for i in range(0, num_players)]
 	for card in dealt_cards:
-		print card.top().suit
-		print card.top().rank
+		print("Dealt a {} of {}".format(card.top().rank, card.top().suit))
 	all_players = [Player(i, dealt_cards[:i] + dealt_cards[(i+1):]) for i in range(0, num_players)]
 	# TODO: check quad / triple / double
 

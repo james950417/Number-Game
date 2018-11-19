@@ -1,12 +1,9 @@
-#test
 class Player():
     def __init__(self, pid, others_cards):
         self.pid = pid
         self.num_players = len(others_cards)
         self.ranges = self.create_ranges(others_cards)
-        print self.ranges
         self.others_cards = others_cards
-        print self.others_cards[0].top().rank
         sorted(self.others_cards, reverse=True)
         self.others_ranges =[[]]
 
@@ -35,19 +32,19 @@ class Player():
                 curr_length+=1
             else:
                 if curr_length > max_length:
-                    max_range = (i-curr_length+1, i)
+                    max_range = (prev-curr_length+1, prev)
                     max_length = curr_length
                 curr_length = 1
-                prev = i
+            prev = i
 
         if curr_length > max_length:
-            max_range = (i-curr_length+1, i)
+            max_range = (self.ranges[-1]-curr_length+1, self.ranges[-1])
             max_length = curr_length
 
         num = max_range[1]
         rank = 1
         for i in self.others_cards:
-            if num < i:
+            if num > i.top().rank:
                 return rank
             else:
                 rank+=1
