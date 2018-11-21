@@ -6,7 +6,7 @@ Created on Fri Jul  6 11:39:30 2018
 """
 import random
 
-suits = ["hearts", "spades", "clubs", "diamonds"]
+suits = ["❤️", "♠️", "♣️", "♦️"]
 names = {'1':'ace', '11':'jack', '12':'queen', '13':'king', '14':'joker'}
 
 """ Groundwork for a card class"""

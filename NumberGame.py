@@ -1,7 +1,6 @@
 from Player import Player
 from Deck import Deck
 
-
 class NumberGame(object):
 	"""docstring for NumberGame"""
 	def __init__(self, arg):
@@ -16,7 +15,7 @@ def main():
 	deck.shuffle()
 	dealt_cards = [deck.deal(1) for i in range(0, num_players)]
 	for card in dealt_cards:
-		print("Dealt a {} of {}".format(card.top().rank, card.top().suit))
+		print("Dealt [ {}{}  ]".format(card.top().rank, card.top().suit))
 	all_players = [Player(i, dealt_cards[:i] + dealt_cards[(i+1):]) for i in range(0, num_players)]
 	# TODO: check quad / triple / double
 
@@ -26,10 +25,10 @@ def main():
 		update_player(all_players, player.get_id(), guess, None)
 
 	for player in all_players:
+                # fix confusing rank terminology
 		rank, value = player.guess_card()
-        print ("Player {} guessed {} with a rank {}.".format(player.get_id(), value, rank))
+	        print ("Player {} guessed {} with a rank of {}.".format(player.get_id(), rank, value))
         update_player(all_players, player.get_id(), rank, value)
-
 
 
 
