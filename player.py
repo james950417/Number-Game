@@ -6,6 +6,12 @@ class Player():
         self.num_players = len(others_cards)
         self.ranges = self.create_ranges(others_cards)
         # transform from cards to numbers
+        cards_iter = iter(others_cards)
+        self.others_cards_map = {}
+        for i in xrange(self.num_players):
+            if i != pid:
+                self.others_cards_map[i] = next(cards_iter)
+                
         self.others_cards = [i.top().rank for i in others_cards]
         self.others_cards.sort(reverse=True)
         self.others_ranges = {}
@@ -30,15 +36,15 @@ class Player():
                 other_range = self.others_ranges.get(player)
             else:
                 self.others_ranges[player] = [i for i in xrange(1, 14)]
+                for i in self.others_cards_map:
+                    if i != player:
+                        if self.others_cards_map[i] in self.others_ranges[player]:
+                            self.others_ranges[player].remove(self.others_cards_map[i])
+
             for i in xrange(1, 14):
                 hypo_ranks = self.infer_ranks(self.others_ranges[player], i)
-                # print("Num {}".format(i))
-                # print("Hypo ranks {}".format(hypo_ranks))
-                # print("Rank {}".format(rank))
                 if rank not in hypo_ranks:
                     invalid.append(i)
-            # print("self.ranges {}".format(self.ranges))
-            # print("invalid {}".format(invalid))
             for i in invalid:
                 if i in self.ranges: 
                     self.ranges.remove(i) 
