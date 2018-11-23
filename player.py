@@ -1,8 +1,9 @@
 import random
 
 class Player():
-    def __init__(self, pid, others_cards):
+    def __init__(self, pid, others_cards, num_ranks):
         self.pid = pid
+        self.num_ranks = num_ranks
         self.num_players = len(others_cards)
         self.ranges = self.create_ranges(others_cards)
         # transform from cards to numbers
@@ -14,7 +15,7 @@ class Player():
                 
         self.others_cards = [i.top().rank for i in others_cards]
         self.others_cards.sort(reverse=True)
-        self.others_ranges = {}
+        self.others_ranges = self.initialize_others_ranges()
 
     def create_ranges(self, others_cards):
         ranges = [i for i in xrange(1, 14)]
@@ -23,6 +24,10 @@ class Player():
                 ranges.remove(i.top().rank)
         return ranges
 
+    def initialize_others_ranges(self):
+        for i in xrange(self.num_players):
+            if i != self.pid:
+                ah
 
     def get_id(self):
         return self.pid
@@ -30,11 +35,14 @@ class Player():
     def update(self, player, rank, value):
         if player == self.pid:
             return
+        # first pass
+        # TODO: split up into two functions
         if not value:
             invalid = []
             if player in self.others_ranges:
                 other_range = self.others_ranges.get(player)
             else:
+                # TODO: initialize this in __init__
                 self.others_ranges[player] = [i for i in xrange(1, 14)]
                 for i in self.others_cards_map:
                     if i != player:
