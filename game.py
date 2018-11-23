@@ -1,5 +1,9 @@
+# -*- coding: utf-8 -*-
+
 from player import Player
 from deck import Deck 
+from deck import Set
+from deck import Card
 
 class NumberGame(object):
 	"""docstring for NumberGame"""
@@ -18,6 +22,7 @@ def main():
 	myid = 0
 	# for card in dealt_cards:
 	# 	print("Dealt [ {}{}  ]".format(card.top().rank, card.top().suit))
+	# dealt_cards = [Set(Card("❤️", 5)), Set(Card("❤️", 7)), Set(Card("❤️", 1))]
 	all_players = [Player(i, dealt_cards[:i] + dealt_cards[(i+1):]) for i in range(0, num_players)]
 	# TODO: check quad / triple / double
 
@@ -38,8 +43,7 @@ def main():
 		else:
 			value, rank = player.guess_card()
 		print ("Player {} guessed {} with a rank of {}.".format(player.get_id(), value, rank))
-		if player.get_id() == myid:
-			print("You actually had {}".format(dealt_cards[0].top().rank))
+                print ("Player {} actually had {}".format(player.get_id(), dealt_cards[player.get_id()].top().rank))
 		update_player(all_players, player.get_id(), rank, value)
 
 def update_player(all_players, pid, rank, value):
