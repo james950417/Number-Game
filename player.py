@@ -6,6 +6,7 @@ class Player():
         # self.num_ranks = num_ranks
         self.num_players = len(others_cards)+1
         self.ranges = self.create_ranges(others_cards)
+        self.num_ranks = num_ranks
         # transform from cards to numbers
         cards_iter = iter(others_cards)
         self.others_cards_map = {}
