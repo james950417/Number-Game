@@ -1,10 +1,11 @@
 import random
 
 class Player():
-    def __init__(self, pid, others_cards):
+    def __init__(self, pid, others_cards, num_ranks):
         self.pid = pid
         self.num_players = len(others_cards)
         self.ranges = self.create_ranges(others_cards)
+        self.num_ranks = num_ranks
         # transform from cards to numbers
         cards_iter = iter(others_cards)
         self.others_cards_map = {}

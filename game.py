@@ -14,12 +14,16 @@ def main():
 	deck = Deck()
 	deck.shuffle()
 	dealt_cards = [deck.deal(1) for i in range(0, num_players)]
+	dealt_cards_value_only = [card.top().rank for card in dealt_cards]
+
 	# change this to randomize when I go
 	myid = 0
 	# for card in dealt_cards:
 	# 	print("Dealt [ {}{}  ]".format(card.top().rank, card.top().suit))
-	all_players = [Player(i, dealt_cards[:i] + dealt_cards[(i+1):]) for i in range(0, num_players)]
 	# TODO: check quad / triple / double
+	total_ranks = count_uniq_ranks(dealt_cards_value_only)
+	print "There is {} unique ranks in total.".format(total_ranks)
+	all_players = [Player(i, dealt_cards[:i] + dealt_cards[(i+1):], total_ranks) for i in range(0, num_players)]
 
 	for player in all_players:
 		if player.get_id() == myid:
@@ -45,6 +49,9 @@ def main():
 def update_player(all_players, pid, rank, value):
 	for player in all_players:
 		player.update(pid, rank, value)
+
+def count_uniq_ranks(dealt_cards_value_only):
+	return len(list(set(dealt_cards_value_only)))
 
 
 if __name__ == '__main__':
